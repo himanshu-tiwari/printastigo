@@ -1,6 +1,7 @@
 <?php
 
 use Slim\Views\Twig;
+use Printastigo\Models\Product;
 use Slim\Views\TwigExtension;
 use Interop\Container\ContainerInterface;
 
@@ -18,7 +19,10 @@ return [
 		));
 
 		return $twig;
-	}
+	},
+	Product::class =>function (ContainerInterface $c){
+		return new Product;
+	},
 ];
 
 ?>
