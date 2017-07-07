@@ -7,10 +7,15 @@ use Slim\Views\TwigExtension;
 use Interop\Container\ContainerInterface;
 use Printastigo\Support\Storage\SessionStorage;
 use Printastigo\Support\Storage\Contracts\StorageInterface;
+use Printastigo\Validation\Contracts\ValidatorInterface;
+use Printastigo\Validation\Validator;
 
 
 return [
 	'router' => DI\object(Slim\Router::class),
+	ValidatorInterface::class => function(ContainerInterface $c){
+		return new Validator;
+	},
 	StorageInterface::class => function(ContainerInterface $c){
 		return new SessionStorage('cart');
 	},
