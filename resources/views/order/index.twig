@@ -1,5 +1,7 @@
 {% extends 'templates/app.twig' %}
 
+{% block title %}Place Order{% endblock %}
+
 {% block content %}
 	<form action="{{ path_for('order.create') }}" method="post">
 		<div class="row">
@@ -78,6 +80,12 @@
 						</div>
 					</div>
 				</div>
+				
+				<h3>Payment</h3>
+				<hr>
+
+				<div id="payment"></div>
+				<br>
 			</div>
 			<div class="col-md-4">
 				<div class="well">
@@ -91,4 +99,19 @@
 			</div>
 		</div>
 	</form>
+{% endblock %}
+
+{% block scripts %}
+	<script src="https://js.braintreegateway.com/js/braintree-2.32.1.min.js"></script>
+	<script type="text/javascript">
+		$.ajax({
+			url: '{{ path_for('braintree.token') }}',
+			type: 'get',
+			dataType: 'json'
+		}).success(function(data){
+			braintree.setup(data.token, "dropin", {
+			  container: "payment"
+			});
+		});
+	</script>
 {% endblock %}

@@ -3,6 +3,10 @@
 use Slim\Views\Twig;
 use Printastigo\Basket\Basket;
 use Printastigo\Models\Product;
+use Printastigo\Models\Order;
+use Printastigo\Models\Customer;
+use Printastigo\Models\Address;
+use Printastigo\Models\Payment;
 use Slim\Views\TwigExtension;
 use Interop\Container\ContainerInterface;
 use Printastigo\Support\Storage\SessionStorage;
@@ -35,6 +39,18 @@ return [
 	},
 	Product::class =>function (ContainerInterface $c){
 		return new Product;
+	},
+	Order::class =>function (ContainerInterface $c){
+		return new Order;
+	},
+	Customer::class =>function (ContainerInterface $c){
+		return new Customer;
+	},
+	Address::class =>function (ContainerInterface $c){
+		return new Address;
+	},
+	Payment::class =>function (ContainerInterface $c){
+		return new Payment;
 	},
 	Basket::class =>function (ContainerInterface $c){
 		return new Basket(

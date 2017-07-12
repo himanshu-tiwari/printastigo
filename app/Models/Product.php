@@ -3,9 +3,12 @@
 namespace Printastigo\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Printastigo\Models\Order;
 
 class Product extends Model
 {
+	public $quantity = null;
+	
 	public function hasLowStock(){
 		if ($this->outOfStock()) {
 			return false;
@@ -24,6 +27,10 @@ class Product extends Model
 
 	public function hasStock($quantity){
 		return $this->stock >= $quantity;
+	}
+
+	public function order(){
+		return $this->belongsToMany(Order::class, 'orders_products')->withPivot('quantity');
 	}
 }
 

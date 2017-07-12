@@ -28,6 +28,11 @@ $capsule->addConnection([
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
+Braintree_Configuration::environment('sandbox');
+Braintree_Configuration::merchantId('dtbx536n3bqyb5js');
+Braintree_Configuration::publicKey('sttrckm8gysx4y6x');
+Braintree_Configuration::privateKey('8dd55ce047b3ade6e8d74964df53ce9c');
+
 require __DIR__."/../app/routes.php";
 
 $app->add(new \Printastigo\Middleware\ValidationErrorsMiddleware($container->get(Twig::class)));
