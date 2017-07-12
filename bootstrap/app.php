@@ -3,6 +3,9 @@
 use Printastigo\App;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Slim\Views\Twig;
+use Printastigo\Config\Mode;
+
+use Psr\Http\Message\ResponseInterface as Response;
 
 session_start();
 
@@ -12,26 +15,29 @@ $app = new App;
 
 $container = $app->getContainer();
 
+$mode = new Mode;
+$env = $mode->getEnvDetails('development');
+
 $capsule = new Capsule;
 
 $capsule->addConnection([
-	'driver' => 'mysql',
-	'host' => '127.0.0.1',
-	'database' => 'printastigo',
-	'username' => 'root',
-	'password' => '',
-	'charset' => 'utf8',
-	'collation' => 'utf8_unicode_ci',
-	'prefix' => ''
+	'driver' => $env['db']['driver'],
+	'host' => $env['db']['host'],
+	'database' => $env['db']['database'],
+	'username' => $env['db']['username'],
+	'password' => $env['db']['password'],
+	'charset' => $env['db']['charset'],
+	'collation' => $env['db']['collation'],
+	'prefix' => $env['db']['prefix']
 ]);
 
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
-Braintree_Configuration::environment('sandbox');
-Braintree_Configuration::merchantId('dtbx536n3bqyb5js');
-Braintree_Configuration::publicKey('sttrckm8gysx4y6x');
-Braintree_Configuration::privateKey('8dd55ce047b3ade6e8d74964df53ce9c');
+Braintree_Configuration::environment($env['braintree']['environment']);
+Braintree_Configuration::merchantId($env['braintree']['merchantId']);
+Braintree_Configuration::publicKey($env['braintree']['publicKey']);
+Braintree_Configuration::privateKey($env['braintree']['privateKey']);
 
 require __DIR__."/../app/routes.php";
 
