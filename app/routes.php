@@ -2,6 +2,9 @@
 
 $app->get('/', ['Printastigo\Controllers\HomeController', 'index'])->setName('home');
 $app->get('/category/{category}', ['Printastigo\Controllers\CategoryController', 'index'])->setName('category.get');
+$app->get('/subCategory/{subCategory}', ['Printastigo\Controllers\SubCategoryController', 'index'])->setName('subCategory.get');
+$app->get('/classification/{classification}', ['Printastigo\Controllers\ClassificationController', 'index'])->setName('classification.get');
+$app->get('/specification/{specification}', ['Printastigo\Controllers\SpecificationController', 'index'])->setName('specification.get');
 
 $app->get('/products/{slug}', ['Printastigo\Controllers\ProductController', 'get'])->setName('product.get');
 

@@ -1,0 +1,46 @@
+{% extends 'templates/app.twig' %}
+
+{% block title %}{{ products.first.classification }}{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+			<a href="{{ path_for('home') }}">
+				<button class="btn btn-default btn-sm" type="button">{{ products.first.category }} <span><i class="fa fa-times" aria-hidden="true"></i></span></button>
+			</a>
+			<a href="{{ path_for('category.get', {category: products.first.category}) }}">
+				<button class="btn btn-default btn-sm" type="button">{{ products.first['sub-category'] }} <span><i class="fa fa-times" aria-hidden="true"></i></span></button>
+			</a>
+			<a href="{{ path_for('subCategory.get', {subCategory: products.first['sub-category']}) }}">
+				<button class="btn btn-default btn-sm" type="button">{{ products.first.classification }} <span><i class="fa fa-times" aria-hidden="true"></i></span></button>
+			</a>
+			
+			{% if specifications[0] %}
+				<div class="dropdown">
+					<button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Select Specification <span><i class="fa fa-caret-down" aria-hidden="true"></i></span></button>
+					<ul class="dropdown-menu">
+						{% for specification in specifications %}
+					    	<li>
+					    		<a href="{{ path_for('specification.get', {specification: specification.specification}) }}">
+					    			{{ specification.specification }}
+					    		</a>
+					    	</li>
+				    	{% endfor %}
+				    </ul>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		{% for index, product in products %}
+			<div class="col-md-4 col-sm-6">
+				{% include 'products/partials/item.twig' with {product: product} %}
+			</div>
+			{% if (index+1)%3 == 0 %}
+				</div>
+				<div class="row">
+			{% endif %}
+		{% endfor %}	
+	</div>
+{% endblock %}

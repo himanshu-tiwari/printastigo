@@ -9,7 +9,11 @@
 				<button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Select Category <span><i class="fa fa-caret-down" aria-hidden="true"></i></span></button>
 				<ul class="dropdown-menu">
 					{% for category in categories %}
-				    	{% include 'products/partials/dropdown.twig' with {category: category} %}
+				    	<li>
+				    		<a href="{{ path_for('category.get', {category: category.category}) }}">
+				    			{{ category.category }}
+				    		</a>
+				    	</li>
 			    	{% endfor %}
 			    </ul>
 			</div>

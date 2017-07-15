@@ -1,6 +1,6 @@
 {% extends 'templates/app.twig' %}
 
-{% block title %}{{ products.first.category }}{% endblock %}
+{% block title %}{{ products.first['sub-category'] }}{% endblock %}
 
 {% block content %}
 	<div class="row">
@@ -8,15 +8,18 @@
 			<a href="{{ path_for('home') }}">
 				<button class="btn btn-default btn-sm" type="button">{{ products.first.category }} <span><i class="fa fa-times" aria-hidden="true"></i></span></button>
 			</a>
+			<a href="{{ path_for('category.get', {category: products.first.category}) }}">
+				<button class="btn btn-default btn-sm" type="button">{{ products.first['sub-category'] }} <span><i class="fa fa-times" aria-hidden="true"></i></span></button>
+			</a>
 			
-			{% if subCategories[0] %}
+			{% if classifications[0] %}
 				<div class="dropdown">
-					<button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Select Sub-Category <span><i class="fa fa-caret-down" aria-hidden="true"></i></span></button>
+					<button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Select Classification <span><i class="fa fa-caret-down" aria-hidden="true"></i></span></button>
 					<ul class="dropdown-menu">
-						{% for subCategory in subCategories %}
+						{% for classification in classifications %}
 					    	<li>
-					    		<a href="{{ path_for('subCategory.get', {subCategory: subCategory['sub-category']}) }}">
-					    			{{ subCategory['sub-category'] }}
+					    		<a href="{{ path_for('classification.get', {classification: classification.classification}) }}">
+					    			{{ classification.classification }}
 					    		</a>
 					    	</li>
 				    	{% endfor %}
