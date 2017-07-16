@@ -34,6 +34,7 @@ return [
 		));
 
 		$twig->getEnvironment()->addGlobal('basket', $c->get(Basket::class));
+		$twig->getEnvironment()->addGlobal('allProducts', $c->get(Product::class));
 
 		return $twig;
 	},
