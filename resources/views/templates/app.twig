@@ -31,6 +31,18 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+	<!-- fabric js -->
+	<script type="text/javascript" src="{{ app.request.getBaseURL() }}/printastigo/assets/js/fabric.min.js"></script>
+
+	<!-- Script for Uploadcare -->
+	<script>
+		UPLOADCARE_LOCALE = "en";
+		UPLOADCARE_LIVE = false;
+		UPLOADCARE_TABS = "file url facebook gdrive gphotos dropbox instagram evernote flickr skydrive";
+		UPLOADCARE_PUBLIC_KEY = "ce045f35956ae81fbf62";
+	</script>
+	<script charset="utf-8" src="//ucarecdn.com/libs/widget/3.1.2/uploadcare.full.min.js"></script>
+
 	{% block scripts %}{% endblock %}
 </body>
 </html>
