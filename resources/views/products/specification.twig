@@ -5,17 +5,25 @@
 {% block content %}
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
-			<a href="{{ path_for('home') }}">
-				<button class="btn btn-default btn-sm" type="button">{{ products.first.category }} <span><i class="fa fa-times" aria-hidden="true"></i></span></button>
-			</a>
 			<a href="{{ path_for('category.get', {category: products.first.category}) }}">
-				<button class="btn btn-default btn-sm" type="button">{{ products.first['sub-category'] }} <span><i class="fa fa-times" aria-hidden="true"></i></span></button>
+				<button class="btn btn-default btn-sm" type="button">
+					{{ products.first.category }} <a href="{{ path_for('home') }}"><span><i class="fa fa-times" aria-hidden="true"></i></span></a>
+				</button>
 			</a>
 			<a href="{{ path_for('subCategory.get', {subCategory: products.first['sub-category']}) }}">
-				<button class="btn btn-default btn-sm" type="button">{{ products.first.classification }} <span><i class="fa fa-times" aria-hidden="true"></i></span></button>
+				<button class="btn btn-default btn-sm" type="button">
+					{{ products.first['sub-category'] }} <a href="{{ path_for('category.get', {category: products.first.category}) }}"><span><i class="fa fa-times" aria-hidden="true"></i></span></a>
+				</button>
 			</a>
 			<a href="{{ path_for('classification.get', {classification: products.first.classification}) }}">
-				<button class="btn btn-default btn-sm" type="button">{{ products.first.specification }} <span><i class="fa fa-times" aria-hidden="true"></i></span></button>
+				<button class="btn btn-default btn-sm" type="button">
+					{{ products.first.classification }} <a href="{{ path_for('subCategory.get', {subCategory: products.first['sub-category']}) }}"><span><i class="fa fa-times" aria-hidden="true"></i></span></a>
+				</button>
+			</a>
+			<a href="{{ path_for('specification.get', {specification: products.first.specification}) }}">
+				<button class="btn btn-default btn-sm" type="button">
+					{{ products.first.specification }} <a href="{{ path_for('classification.get', {classification: products.first.classification}) }}"><span><i class="fa fa-times" aria-hidden="true"></i></span></a>
+				</button>
 			</a>
 		</div>
 	</div>

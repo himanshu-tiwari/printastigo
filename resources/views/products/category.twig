@@ -5,8 +5,10 @@
 {% block content %}
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
-			<a href="{{ path_for('home') }}">
-				<button class="btn btn-default btn-sm" type="button">{{ products.first.category }} <span><i class="fa fa-times" aria-hidden="true"></i></span></button>
+			<a href="{{ path_for('category.get', {category: products.first.category}) }}">
+				<button class="btn btn-default btn-sm" type="button">
+					{{ products.first.category }} <a href="{{ path_for('home') }}"><span><i class="fa fa-times" aria-hidden="true"></i></span></a>
+				</button>
 			</a>
 			
 			{% if subCategories[0] %}
@@ -27,6 +29,8 @@
 	</div>
 	<hr>
 	<div class="row">
+		{% include 'products/partials/upload.twig' %}
+
 		{% for index, product in products %}
 			<div class="col-lg-3 col-md-3 col-sm-6">
 				{% include 'products/partials/item.twig' with {product: product} %}
