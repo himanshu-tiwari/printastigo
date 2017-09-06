@@ -7,6 +7,20 @@ use Printastigo\Models\Order;
 
 class Product extends Model
 {
+	protected $fillable = [
+		'category',
+		'sub-category',
+		'classification',
+		'specification',
+		'title',
+		'slug',
+		'description',
+		'price',
+		'image',
+		'stock',
+		'custom',
+	];
+
 	public $quantity = null;
 	
 	public function hasLowStock(){

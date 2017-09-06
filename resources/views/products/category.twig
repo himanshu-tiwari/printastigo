@@ -35,6 +35,7 @@
 					<div>
 						<input type="hidden" role="uploadcare-uploader" name="design" data-crop="free" data-images-only="true" data-clearable="true" required />
 						<input type="hidden" name="category" value="{{ products.first.category }}"/>
+						<input type="hidden" name="price" value="{{ products.first.price }}"/>
 						<button type="submit" class="btn btn-default upload-button">Upload</button>
 					</div>
 				</form>
@@ -42,13 +43,15 @@
 		</div>
 
 		{% for index, product in products %}
-			<div class="col-lg-3 col-md-3 col-sm-6">
-				{% include 'products/partials/item.twig' with {product: product} %}
-			</div>
-			{% if (index+1)%4 == 0 %}
+			{% if product.custom == 0 %}
+				<div class="col-lg-3 col-md-3 col-sm-6">
+					{% include 'products/partials/item.twig' with {product: product} %}
 				</div>
-				<div class="row">
-			{% endif %}
-		{% endfor %}		
+				{% if (index+1)%4 == 0 %}
+					</div>
+					<div class="row">
+				{% endif %}
+			{% endif %}	
+		{% endfor %}
 	</div>
 {% endblock %}

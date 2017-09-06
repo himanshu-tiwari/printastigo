@@ -22,13 +22,15 @@
 	<hr>
 	<div class="row">
 		{% for index, product in products %}
-			<div class="col-lg-3 col-md-3 col-sm-6">
-				{% include 'products/partials/item.twig' with {product: product} %}
-			</div>
-			{% if (index+1)%4 == 0 %}
+			{% if product.custom == 0 %}
+				<div class="col-lg-3 col-md-3 col-sm-6">
+					{% include 'products/partials/item.twig' with {product: product} %}
 				</div>
-				<div class="row">
-			{% endif %}
+				{% if (index+1)%4 == 0 %}
+					</div>
+					<div class="row">
+				{% endif %}
+			{% endif %}	
 		{% endfor %}	
 	</div>
 {% endblock %}

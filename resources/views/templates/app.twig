@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- Custom Scripts -->
+	<link rel="stylesheet" type="text/css" href="{{ app.request.getBaseURL() }}/printastigo/assets/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="{{ app.request.getBaseURL() }}/printastigo/assets/css/footer.css" />
 
 	<!-- FontAwesome -->
@@ -42,6 +43,13 @@
 		UPLOADCARE_PUBLIC_KEY = "ce045f35956ae81fbf62";
 	</script>
 	<script charset="utf-8" src="//ucarecdn.com/libs/widget/3.1.2/uploadcare.full.min.js"></script>
+	<script>
+		var widget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
+
+		widget.onUploadComplete(function(){
+			document.querySelector('.upload-button').style = 'display: inline-block';
+		});
+	</script>
 
 	{% block scripts %}{% endblock %}
 </body>

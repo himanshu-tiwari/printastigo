@@ -2,25 +2,37 @@
 
 namespace Printastigo\Controllers;
 
+use Slim\Router;
 use Slim\Views\Twig;
 use Printastigo\Models\Product;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 class CustomUploadController{
-	public function update(Request $request, Response $response, Twig $view, Product $product){
-		var_dump($request->getParam('design') );
-	// 	$products = $product->where('category', $category)->get();
-	// 	$subCategories = $product->where('category', $category)->select('sub-category')->whereNotNull('sub-category')->groupBy('sub-category')->get();
+	public function update(Request $request, Response $response, Twig $view, Product $product, Router $router){
+		$date = date_create();
+		$title = $request->getParam('specification') ? $request->getParam('specification') : ($request->getParam('classification') ? $request->getParam('classification') : ($request->getParam('sub-category') ? $request->getParam('sub-category') : $request->getParam('category'))) . ' ' . substr(date_format($date, 'U = d-m-Y H:i:s'),-19);
 
-	// 	if (!$products) {
-	// 		return $response->withRedirect($router->pathFor('home'));
-	// 	}
+		$slug = implode("-", explode(" ", $title));
 
-	// 	return $view->render($response, 'products/category.twig',[
-	// 		"products" => $products,
-	// 		"subCategories" => $subCategories,
-	// 	]);
+		$product = $product->firstOrCreate([
+			'category' => $request->getParam('category'),
+			'sub-category' => $request->getParam('sub-category'),
+			'classification' => $request->getParam('classification'),
+			'specification' => $request->getParam('specification'),
+			'title' => $title,
+			'slug' => $slug,
+			'price' => $request->getParam('price'),
+			'image' => $request->getParam('design'),
+			'stock' => 10,
+			'custom' => 1
+		]);
+
+		if (!$product) {
+			return $response->withRedirect($router->pathFor('home'));
+		}
+
+		return $response->withRedirect($router->pathFor('cart.add', ['slug'=> $slug, 'quantity'=> 1]));
 	}
 }
 
