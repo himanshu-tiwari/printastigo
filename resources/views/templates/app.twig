@@ -44,6 +44,10 @@
 	</script>
 	<script charset="utf-8" src="//ucarecdn.com/libs/widget/3.1.2/uploadcare.full.min.js"></script>
 	<script>
+		$( document ).ready(function() {
+			document.querySelector('.uploadcare--widget__button_type_open').innerHTML = 'Upload Custom Design';
+		});	
+
 		var widget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
 
 		widget.onUploadComplete(function(){
