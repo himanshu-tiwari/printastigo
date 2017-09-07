@@ -8,7 +8,9 @@ class CustomUploadForm
 {
 	public static function rules(){
 		return [
-			'description' => v::alnum(' -,./'),
+			'design' => v::url(),
+			'description' => v::optional(v::alnum(' -,./')),
+			'amount' => v::numeric(),
 		];
 	}
 }

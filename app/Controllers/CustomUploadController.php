@@ -64,7 +64,7 @@ class CustomUploadController{
 			'slug' => $slug,
 			'price' => $request->getParam('price'),
 			'image' => $request->getParam('design'),
-			'stock' => 10,
+			'stock' => $request->getParam('amount'),
 			'custom' => 1
 		]);
 
