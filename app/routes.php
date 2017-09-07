@@ -19,4 +19,6 @@ $app->post('/order', ['Printastigo\Controllers\OrderController', 'create'])->set
 $app->get('/braintree/token', ['Printastigo\Controllers\BraintreeController', 'token'])->setName('braintree.token');
 
 $app->post('/upload', ['Printastigo\Controllers\CustomUploadController', 'update'])->setName('upload');
+
+$app->get('/customize/{slug}', ['Printastigo\Controllers\CustomizeDesignController', 'get'])->setName('customize.get');
 ?>
