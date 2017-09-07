@@ -43,7 +43,16 @@
 			<div class="thumbnail">
 				<form action="{{ path_for('upload') }}" method="post">
 					<div>
-						<input type="hidden" role="uploadcare-uploader" name="design" data-crop="free" data-images-only="true" data-clearable="true" required />
+						<div class="form-group {% if errors.design %} has-error {% endif %}">
+							<input type="hidden" role="uploadcare-uploader" name="design" data-crop="free" data-images-only="true" data-clearable="true" required />
+
+							{% if errors.design %}
+								<span class="help-block">
+									{{ errors.design | first }}
+								</span>
+							{% endif %}
+						</div>
+
 						<input type="hidden" name="category" value="{{ products.first.category }}"/>
 						<input type="hidden" name="sub-category" value="{{ products.first['sub-category'] }}"/>
 						<input type="hidden" name="classification" value="{{ products.first.classification }}"/>
@@ -52,7 +61,7 @@
 						<hr>
 
 						<div class="form-group {% if errors.description %} has-error {% endif %}">
-							<input type="text" name="description" placeholder="description" class="upload form-control" id="upload-description" value="{{ old.description }}"/>
+							<input type="text" name="description" placeholder="description" class="form-control" value="{{ old.description }}"/>
 
 							{% if errors.description %}
 								<span class="help-block">
@@ -62,7 +71,7 @@
 						</div>	
 
 						<div class="form-group {% if errors.amount %} has-error {% endif %}">
-							<input type="text" name="amount" placeholder="amount (required)" class="upload form-control" id="upload-amount" value="{{ old.amount }}"/>
+							<input type="text" name="amount" placeholder="amount (required)" class="form-control"  value="{{ old.amount }}"/>
 
 							{% if errors.amount %}
 								<span class="help-block">
@@ -100,8 +109,6 @@
 		var widget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
 
 		widget.onUploadComplete(function(){
-			document.getElementById('upload-description').style = 'display: inline-block';
-			document.getElementById('upload-amount').style = 'display: inline-block';
 			document.getElementById('upload-button').style = 'display: inline-block';
 		});
 	</script>
