@@ -1,0 +1,106 @@
+{% extends 'templates/app.twig' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+
+			{% if product.category %}
+				<a href="{{ path_for('category.get', {category: product.category}) }}">
+					<button class="btn btn-default btn-sm" type="button">{{ product.category }}</button>
+				</a>
+			{% endif %}
+							
+			{% if product['sub-category'] %}
+				<a href="{{ path_for('subCategory.get', {subCategory: product['sub-category']}) }}">
+					<button class="btn btn-default btn-sm" type="button">{{ product['sub-category'] }}</button>
+				</a>
+			{% endif %}
+
+			{% if product.classification %}
+			<a href="{{ path_for('classification.get', {classification: product.classification}) }}">
+				<button class="btn btn-default btn-sm" type="button">{{ product.classification }}</button>
+			</a>
+			{% endif %}
+
+			{% if product.specification %}
+			<a href="{{ path_for('specification.get', {specification: product.specification}) }}">
+				<button class="btn btn-default btn-sm" type="button">{{ product.specification }}</button>
+			</a>
+			{% endif %}
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-sm-2 col-md-2 col-lg-2">
+			<img src="{{ product.image }}" alt="{{ product.title }} image" class="thumbnail img-responsive">
+		</div>
+		<div class="col-md-10 col-md-10 col-md-10">
+			<div class="well">
+				{% if product.hasLowStock() %}
+					<span class="label label-warning">Low Stock</span>
+				{% endif %}
+
+				{% if product.outOfStock() %}
+					<span class="label label-danger">Out of Stock</span>
+				{% endif %}
+
+				<h3>{{ product.title }}</h3>
+
+				<hr>
+
+				<canvas class="col-sm-12 col-md-12 col-lg-12" id="c" width="900px" height="500px"></canvas>
+				&nbsp;&nbsp;<input id="b" type="button"class="btn btn-default btn-md" value="Go Right">
+
+				<a href="{{ path_for('home') }}" class="btn btn-default btn-md pull-left">Home</a>
+				
+				{% if product.inStock() %}
+					<div class="pull-right">
+						<a href="{{ path_for('cart.add', {slug: product.slug, quantity: 1}) }}" class="btn btn-default btn-md">Add to Cart</a>
+					</div>
+				{% endif %}
+			</div>
+		</div>	
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<!-- fabric js -->
+	<script type="text/javascript" src="{{ app.request.getBaseURL() }}/printastigo/assets/js/fabric.min.js"></script>
+
+	<script type="text/javascript">
+		// create a wrapper around native canvas element (with id="c")
+		var canvas = new fabric.Canvas('c');
+		// create a rectangle object
+		var rect = new fabric.Rect({
+		  left: 200,
+		  top: 100,
+		  fill: 'red',
+		  width: 200,
+		  height: 200,
+		  angle: 45,
+		  opacity: 0.5
+		});
+
+		// "add" rectangle onto canvas
+		canvas.add(rect);
+
+		$("#b").click(function(){
+			rect.setLeft(rect.getLeft() + 10);
+			canvas.renderAll();
+		});
+
+		fabric.Image.fromURL('{{ product.image }}', function(img){
+			console.log(img.getHeight()*2);
+			// canvas.setHeight(img.getHeight()*2);
+			// canvas.setWidth(img.getWidth()*2);
+			img.setHeight(400);
+			img.setWidth(800);
+			img.setTop(50);
+			img.setLeft(50);
+			canvas.add(img);
+		});
+
+	</script>
+{% endblock %}
