@@ -69,7 +69,10 @@
 				<a href="{{ path_for('home') }}" class="btn btn-default btn-md pull-left">Home</a>
 			
 				{% if product.inStock() %}
-					<a href="{{ path_for('cart.add', {slug: product.slug, quantity: 1}) }}" class="btn btn-default btn-md pull-right">Add to Cart</a>
+					<div class="pull-right">
+						<a href="#" class="btn btn-md btn-default">Customize <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></a>
+						<a href="{{ path_for('cart.add', {slug: product.slug, quantity: 1}) }}" class="btn btn-default btn-md">Add to Cart</a>
+					</div>
 				{% endif %}
 			</div>
 		</div>	
