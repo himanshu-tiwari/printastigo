@@ -5,6 +5,6 @@
 		<p>{{ product.description }}</p>
 	</div>
 	<div>
-		<a href="#" class="btn btn-md btn-default">Customize <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></a>
+		<a href="{{ path_for('customize.get', {slug: product.slug}) }}" class="btn btn-md btn-default">Customize <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></a>
 	</div>
 </div>
