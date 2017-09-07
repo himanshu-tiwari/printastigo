@@ -47,7 +47,8 @@
 		var widget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
 
 		widget.onUploadComplete(function(){
-			document.querySelector('.upload-button').style = 'display: inline-block';
+			document.getElementById('upload-description').style = 'display: inline-block';
+			document.getElementById('upload-button').style = 'display: inline-block';
 		});
 	</script>
 

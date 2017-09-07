@@ -33,13 +33,26 @@
 			<div class="thumbnail">
 				<form action="{{ path_for('upload') }}" method="post">
 					<div>
-						<input type="hidden" role="uploadcare-uploader" name="design" data-crop="free" data-images-only="true" data-clearable="true" />
+						<input type="hidden" role="uploadcare-uploader" name="design" data-crop="free" data-images-only="true" data-clearable="true" required />
 						<input type="hidden" name="category" value="{{ products.first.category }}"/>
 						<input type="hidden" name="sub-category" value="{{ products.first['sub-category'] }}"/>
 						<input type="hidden" name="classification" value="{{ products.first.classification }}"/>
 						<input type="hidden" name="specification" value="{{ products.first.specification }}"/>
 						<input type="hidden" name="price" value="{{ products.first.price }}"/>
-						<button type="submit" class="btn btn-default upload-button">Upload</button>
+
+						<hr>
+
+						<div class="form-group {% if errors.description %} has-error {% endif %}">
+							<input type="text" name="description" placeholder="description" class="upload form-control" id="upload-description" value="{{ old.description }}"/>
+
+							{% if errors.description %}
+								<span class="help-block">
+									{{ errors.description | first }}
+								</span>
+							{% endif %}
+						</div>						
+						
+						<button type="submit" class="btn btn-default upload" id="upload-button">Upload</button>
 					</div>
 				</form>
 			</div>
@@ -50,11 +63,11 @@
 				<div class="col-lg-3 col-md-3 col-sm-6">
 					{% include 'products/partials/item.twig' with {product: product} %}
 				</div>
-				{% if (index+1)%4 == 0 %}
+				{% if (index+1)!=4 and (index+1)%4 == 0 %}
 					</div>
 					<div class="row">
 				{% endif %}
 			{% endif %}	
-		{% endfor %}		
+		{% endfor %}
 	</div>
 {% endblock %}
